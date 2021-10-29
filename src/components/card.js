@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const Card = (article) => {
   // TASK 5
   // ---------------------
@@ -17,7 +19,39 @@ const Card = (article) => {
   //   </div>
   // </div>
   //
+
+  // Headline
+  // authorPhoto
+  // authorName
+
+
+  const cards = document.createElement('div');
+  const headlines = document.createElement('div');
+  const authors = document.createElement('div');
+  const imageContainer = document.createElement('div');
+  const images = document.createElement('img');
+  const authorName = document.createElement('span');
+
+  cards.appendChild(headlines);
+  cards.appendChild(authors);
+  authors.appendChild(imageContainer);
+  imageContainer.appendChild(images);
+  authors.appendChild(authorName);
+
+  cards.classList.add('card');
+  headlines.classList.add('headline');
+  authors.classList.add('author');
+  imageContainer.classList.add('img-container');
+
+  headlines.textContent = article.headline;
+  images.src = article.authorPhoto;
+  authorName.textContent = article.authorName;
+
+  return cards;
 }
+
+
+// Card({headline: 'helloooo', authorPhoto: "https://tk-assets.lambdaschool.com/a9471235-ed71-4b11-ae15-5a4fa1151d30_bones.jpg", authorName: 'Mike Solovan'});
 
 const cardAppender = (selector) => {
   // TASK 6
@@ -28,6 +62,29 @@ const cardAppender = (selector) => {
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
+  const articleSelector = document.querySelector(`.cards-container`);
+
+  axios.get(`http://localhost:5000/api/articles`).then(art => {
+    console.log(art.data.articles.bootstrap);
+    for(let i = 0; i < art.data.length; i++) {
+      const articlesAuthors = {
+        headline: art.data.articles.bootstrap[i].headline,
+        authorPhoto: art.data.articles.bootstrap[i].authorPhoto,
+        authorName: art.data.articles.bootstrap[i].authorName
+      };
+      // console.log(articlesAuthors)
+      const cards = Card(articlesAuthors)
+      articleSelector.appendChild(cards);
+    }
+  }
+  ).catch(error => {
+    console.error(error);
+  })
+
+
+
 }
+
+cardAppender('.cards-container')
 
 export { Card, cardAppender }
