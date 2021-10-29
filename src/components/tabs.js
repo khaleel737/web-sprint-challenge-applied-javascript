@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const Tabs = (topics) => {
   // TASK 3
   // ---------------------
@@ -12,32 +14,28 @@ const Tabs = (topics) => {
   //   <div class="tab">bootstrap</div>
   //   <div class="tab">technology</div>
   // </div>
-  //
-  // const topic = document.createElement('div');
-  // const tabOne = document.createElement('div');
-  // const tabTwo = document.createElement('div');
-  // const tabThree = document.createElement('div');
-
-  // topic.appendChild(tabOne);
-  // topic.appendChild(tabTwo);
-  // topic.appendChild(tabThree);
-
-  // topic.classList.add('topics');
 
 
+  const allTopic = document.createElement('div');
+  const tabOne = document.createElement('div');
+  const tabTwo = document.createElement('div');
+  const tabThree = document.createElement('div');
 
-  // for (let i = 0; i < topics.length; i++) {
-  //   const allTopics = [
-  //     tabOne.textContent = topics[i],
-  //     tabTwo.textContent = topics[i],
-  //     tabThree.textContent = topics[i],
-  //   ];
-  //   topic.appendChild(allTopics);
-  // }
-  // return topic;
+  allTopic.appendChild(tabOne);
+  allTopic.appendChild(tabTwo);
+  allTopic.appendChild(tabThree);
+
+  allTopic.classList.add('topics');
+
+  tabOne.textContent = topics;
+  tabTwo.textContent = topics;
+  tabThree.textContent = topics;
+
+  return allTopic;
 }
 
-// Tabs(['javascript', 'bootstrap', 'technology'])
+
+// Tabs(['javascript', 'bootstrap', 'technology'])  
 
 const tabsAppender = (selector) => {
   // TASK 4
@@ -47,6 +45,36 @@ const tabsAppender = (selector) => {
   // Find the array of topics inside the response, and create the tabs using the Tabs component.
   // Append the tabs to the element in the DOM that matches the selector passed to the function.
   //
-}
+
+
+  const selecting = document.querySelector(`.tabs-container`);
+
+  axios.get(`http://localhost:5000/api/topics`).then(top => {
+    // console.log(top.data);
+
+    for(let i = 0; i < top.data.topics.length; i++) {
+      const gitTabs = [top.data.topics[i]];
+      console.log(gitTabs)
+    }
+    const allTopics = Tabs(gitTabs);
+    selecting.appendChild(allTopics)
+    
+    
+    // console.log(gitTabs)
+  //     // const tabsAppend = {
+  //       //   top.data.topics[i], 
+  //       //   top.data.topics[i],
+  //       //   top.data.topics[i]
+  //       // }
+        
+        
+
+  }).catch(error => {
+    console.error(error);
+  })
+
+} 
 
 export { Tabs, tabsAppender }
+
+// selecting.appendChild(allTopics)
