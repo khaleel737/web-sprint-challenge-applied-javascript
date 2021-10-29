@@ -47,6 +47,10 @@ const Card = (article) => {
   images.src = article.authorPhoto;
   authorName.textContent = article.authorName;
 
+  cards.addEventListener(('mouseover'), e => {
+    e.target.headlines.style.color = 'red';
+
+  })
   return cards;
 }
 
@@ -64,18 +68,51 @@ const cardAppender = (selector) => {
   //
   const articleSelector = document.querySelector(`.cards-container`);
 
-  axios.get(`http://localhost:5000/api/articles`).then(art => {
-    console.log(art.data.articles.bootstrap);
-    for(let i = 0; i < art.data.length; i++) {
-      const articlesAuthors = {
-        headline: art.data.articles.bootstrap[i].headline,
-        authorPhoto: art.data.articles.bootstrap[i].authorPhoto,
-        authorName: art.data.articles.bootstrap[i].authorName
-      };
+  axios.get(`http://localhost:5000/api/articles`).then(articles => {
+    console.log(articles.data);
+    // for(let i = 0; i < art.data.length; i++) {
+    //   const articlesAuthors = {
+    //     headline: art.data.articles.bootstrap[i].headline,
+    //     authorPhoto: art.data.articles.bootstrap[i].authorPhoto,
+    //     authorName: art.data.articles.bootstrap[i].authorName
+    //   }
+    
+    articles.data.articles.bootstrap.forEach(articleData => {
+      console.log(articleData)
       // console.log(articlesAuthors)
-      const cards = Card(articlesAuthors)
-      articleSelector.appendChild(cards);
-    }
+      const getCards = Card(articleData)
+      articleSelector.appendChild(getCards);
+      console.log(getCards)
+    })
+    articles.data.articles.javascript.forEach(articleData => {
+      console.log(articleData)
+      // console.log(articlesAuthors)
+      const getCards = Card(articleData)
+      articleSelector.appendChild(getCards);
+      console.log(getCards)
+    })
+    articles.data.articles.jquery.forEach(articleData => {
+      console.log(articleData)
+      // console.log(articlesAuthors)
+      const getCards = Card(articleData)
+      articleSelector.appendChild(getCards);
+      console.log(getCards)
+    })
+    articles.data.articles.node.forEach(articleData => {
+      console.log(articleData)
+      // console.log(articlesAuthors)
+      const getCards = Card(articleData)
+      articleSelector.appendChild(getCards);
+      console.log(getCards)
+    })
+    articles.data.articles.technology.forEach(articleData => {
+      console.log(articleData)
+      // console.log(articlesAuthors)
+      const getCards = Card(articleData)
+      articleSelector.appendChild(getCards);
+      console.log(getCards)
+    })
+    
   }
   ).catch(error => {
     console.error(error);
