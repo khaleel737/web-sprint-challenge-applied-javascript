@@ -55,8 +55,6 @@ const Card = (article) => {
 }
 
 
-// Card({headline: 'helloooo', authorPhoto: "https://tk-assets.lambdaschool.com/a9471235-ed71-4b11-ae15-5a4fa1151d30_bones.jpg", authorName: 'Mike Solovan'});
-
 const cardAppender = (selector) => {
   // TASK 6
   // ---------------------
@@ -70,18 +68,11 @@ const cardAppender = (selector) => {
 
   axios.get(`http://localhost:5000/api/articles`).then(articles => {
     console.log(articles.data);
-    // for(let i = 0; i < art.data.length; i++) {
-    //   const articlesAuthors = {
-    //     headline: art.data.articles.bootstrap[i].headline,
-    //     authorPhoto: art.data.articles.bootstrap[i].authorPhoto,
-    //     authorName: art.data.articles.bootstrap[i].authorName
-    //   }
 
     
     
     articles.data.articles.bootstrap.forEach(articleData => {
       console.log(articleData)
-      // console.log(articlesAuthors)
       const getCards = Card(articleData)
       articleSelector.appendChild(getCards);
       console.log(getCards)
@@ -89,28 +80,24 @@ const cardAppender = (selector) => {
 
     articles.data.articles.javascript.forEach(articleData => {
       console.log(articleData)
-      // console.log(articlesAuthors)
       const getCards = Card(articleData)
       articleSelector.appendChild(getCards);
       console.log(getCards)
     })
     articles.data.articles.jquery.forEach(articleData => {
       console.log(articleData)
-      // console.log(articlesAuthors)
       const getCards = Card(articleData)
       articleSelector.appendChild(getCards);
       console.log(getCards)
     })
     articles.data.articles.node.forEach(articleData => {
       console.log(articleData)
-      // console.log(articlesAuthors)
       const getCards = Card(articleData)
       articleSelector.appendChild(getCards);
       console.log(getCards)
     })
     articles.data.articles.technology.forEach(articleData => {
       console.log(articleData)
-      // console.log(articlesAuthors)
       const getCards = Card(articleData)
       articleSelector.appendChild(getCards);
       console.log(getCards)
