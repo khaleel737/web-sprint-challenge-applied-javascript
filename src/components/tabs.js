@@ -26,10 +26,13 @@ const Tabs = (topics) => {
   allTopic.appendChild(tabThree);
 
   allTopic.classList.add('topics');
+  tabOne.classList.add('tab');
+  tabTwo.classList.add('tab');
+  tabThree.classList.add('tab');
 
-  tabOne.textContent = topics;
-  tabTwo.textContent = topics;
-  tabThree.textContent = topics;
+  tabOne.textContent = topics[0];
+  tabTwo.textContent = topics[1];
+  tabThree.textContent = topics[2];
 
   return allTopic;
 }
@@ -47,17 +50,17 @@ const tabsAppender = (selector) => {
   //
 
 
-  const selecting = document.querySelector(`.tabs-container`);
+  const selecting = document.querySelector(`${selector}`);
 
   axios.get(`http://localhost:5000/api/topics`).then(top => {
     // console.log(top.data);
 
     for(let i = 0; i < top.data.topics.length; i++) {
       const gitTabs = [top.data.topics[i]];
-      console.log(gitTabs)
+      // console.log(gitTabs)
+      const allTopics = Tabs(gitTabs);
+      selecting.appendChild(allTopics)
     }
-    const allTopics = Tabs(gitTabs);
-    selecting.appendChild(allTopics)
     
     
     // console.log(gitTabs)
@@ -74,6 +77,7 @@ const tabsAppender = (selector) => {
   })
 
 } 
+tabsAppender('.tab-container')
 
 export { Tabs, tabsAppender }
 
