@@ -66,7 +66,7 @@ const cardAppender = (selector) => {
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
-  const articleSelector = document.querySelector(`.cards-container`);
+  const articleSelector = document.querySelector(`${selector}`);
 
   axios.get(`http://localhost:5000/api/articles`).then(articles => {
     console.log(articles.data);
@@ -76,6 +76,8 @@ const cardAppender = (selector) => {
     //     authorPhoto: art.data.articles.bootstrap[i].authorPhoto,
     //     authorName: art.data.articles.bootstrap[i].authorName
     //   }
+
+    
     
     articles.data.articles.bootstrap.forEach(articleData => {
       console.log(articleData)
@@ -84,6 +86,7 @@ const cardAppender = (selector) => {
       articleSelector.appendChild(getCards);
       console.log(getCards)
     })
+
     articles.data.articles.javascript.forEach(articleData => {
       console.log(articleData)
       // console.log(articlesAuthors)
@@ -112,7 +115,7 @@ const cardAppender = (selector) => {
       articleSelector.appendChild(getCards);
       console.log(getCards)
     })
-    
+
   }
   ).catch(error => {
     console.error(error);
